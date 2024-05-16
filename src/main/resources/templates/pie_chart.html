@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var initialData = /*[[ ${initialData} ]]*/ '';
+        
+        var data = google.visualization.arrayToDataTable(initialData);
+
+        var chartName = /*[[ ${chartName} ]]*/ '';
+        var options = {
+          title: chartName
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+<body>
+<div id="piechart" style="width: 1800px; height: 1000px;"></div>
+</body>
+</html>
