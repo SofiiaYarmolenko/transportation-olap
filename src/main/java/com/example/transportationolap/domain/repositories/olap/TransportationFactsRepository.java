@@ -57,4 +57,16 @@ public interface TransportationFactsRepository extends JpaRepository<Transportat
 			"GROUP BY d.name " +
 			"ORDER BY maxDistance DESC")
 	List<Object[]> sortedListOfDriverNamesByMaxDistanceFinished();
+
+	@Query("SELECT tf.startDate.exactYear, COUNT(tf.startDate) " +
+			"FROM TransportationFacts tf " +
+			"GROUP BY tf.startDate.exactYear")
+	List<Object[]> countTransportationsByYear();
+
+	@Query("SELECT tf.driver.name, MAX(tf.distance) " +
+			"FROM TransportationFacts tf " +
+			"JOIN DimLocation start_loc ON tf.fromLocation.id = start_loc.id " +
+			"WHERE start_loc.city = 'Los Angeles' " +
+			"GROUP BY tf.driver.name")
+	List<Object[]> maxDistanceDrivenByDriverFromLA();
 }

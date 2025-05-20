@@ -92,4 +92,27 @@ public class OlapDiagramsController {
 
 		return "histogram";
 	}
+
+	@GetMapping("/pie-chart/maxDistanceDrivenByDriverFromLA")
+	public String pieChartMaxDistanceDrivenByDriverFromLA(Model model) {
+		List<Object[]> data = new ArrayList<>();
+		data.add(new String[]{"Driver Name", "Max distance driven by driver from LA"});
+		data.addAll(transportationFactsRepository.maxDistanceDrivenByDriverFromLA());
+
+		model.addAttribute("initialData", data.toArray());
+		model.addAttribute("chartName", "Max distance driven by driver from LA");
+		return "pie_chart";
+	}
+
+	@GetMapping("/histogram/countTransportationsByYear")
+	public String histogramCountTransportationsByYear(Model model) {
+		List<Object[]> data = new ArrayList<>();
+		data.add(new String[]{"Year", "Count of transportation"});
+		data.addAll(transportationFactsRepository.countTransportationsByYear());
+
+		model.addAttribute("initialData", data.toArray());
+		model.addAttribute("chartName", "Count of transportation");
+
+		return "histogram";
+	}
 }
